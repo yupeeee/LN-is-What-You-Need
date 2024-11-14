@@ -4,6 +4,7 @@
 devices: gpu:0,1,2,3
 seed: 0
 amp: true
+save_per_epoch: 1
 
 #
 # Dataset

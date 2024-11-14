@@ -109,13 +109,14 @@ class Wrapper(L.LightningModule):
         self.log("train/acc", self.train_acc, sync_dist=self.sync_dist)
 
         # save checkpoint
-        if (current_epoch + 1) % self.config["save_per_epoch"] == 0:
-            ckpt_dir = os.path.join(self.trainer._log_dir, "checkpoints")
-            os.makedirs(ckpt_dir, exist_ok=True)
-            torch.save(
-                self.model.state_dict(),
-                os.path.join(ckpt_dir, f"epoch={current_epoch}.ckpt"),
-            )
+        if "save_per_epoch" in self.config.keys():
+            if (current_epoch + 1) % self.config["save_per_epoch"] == 0:
+                ckpt_dir = os.path.join(self.trainer._log_dir, "checkpoints")
+                os.makedirs(ckpt_dir, exist_ok=True)
+                torch.save(
+                    self.model.state_dict(),
+                    os.path.join(ckpt_dir, f"epoch={current_epoch}.ckpt"),
+                )
 
     def validation_step(self, batch, batch_idx):
         data: Tensor
