@@ -1,0 +1,6 @@
+lightning
+pyyaml
+timm
+torch
+torchmetrics
+torchvision
