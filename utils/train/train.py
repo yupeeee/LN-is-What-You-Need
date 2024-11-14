@@ -67,7 +67,8 @@ class Wrapper(L.LightningModule):
 
     def configure_optimizers(self):
         optimizer = load_optimizer(self.model, **self.config)
-        lr_scheduler = load_scheduler(optimizer, **self.config)
+        scheduler_config = {k: v for k, v in self.config.items() if k != "optimizer"}
+        lr_scheduler = load_scheduler(optimizer, **scheduler_config)
 
         return {
             "optimizer": optimizer,
