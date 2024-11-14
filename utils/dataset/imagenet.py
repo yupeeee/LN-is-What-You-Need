@@ -17,8 +17,8 @@ def ImageNet(
     transform: Literal["auto", "train", "eval"] = "auto",
     **kwargs,
 ) -> Dataset:
-    crop_size = kwargs.get("crop_size", 224 if split == "train" else 256)
-    resize_size = kwargs.get("resize_size", 224)
+    crop_size = kwargs.get("crop_size", 224)
+    resize_size = kwargs.get("resize_size", 256)
     interpolation = InterpolationMode(kwargs.get("interpolation", "bilinear"))
     auto_augment_policy = kwargs.get("auto_augment", None)
     random_erase_prob = kwargs.get("random_erase", 0.0)
