@@ -30,7 +30,7 @@ if __name__ == "__main__":
     trainer = ImageNetTrainer(
         dataset_dir=IMAGENET_DIR,
         save_dir=LOGS_DIR,
-        name=args.model + ("_bn2ln" if args.bn2ln else "_ln2bn" if args.ln2bn else ""),
+        name=args.model + ("_ln" if args.bn2ln else "_bn" if args.ln2bn else ""),
         version=args.config,
         **config,
     )
