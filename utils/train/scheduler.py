@@ -14,27 +14,29 @@ def load_scheduler(
     assert "epochs" in kwargs.keys()
 
     if "warmup_lr_scheduler" in kwargs.keys():
-        warmup_epochs = kwargs["warmup_lr_scheduler_cfg"]["total_iters"]
-        warmup_lr_scheduler = getattr(_lr_scheduler, kwargs["warmup_lr_scheduler"])(
+        warmup_epochs = kwargs.get("warmup_lr_scheduler_cfg")["total_iters"]
+        warmup_lr_scheduler = getattr(_lr_scheduler, kwargs.get("warmup_lr_scheduler"))(
             optimizer=optimizer,
-            **kwargs["warmup_lr_scheduler_cfg"],
+            **kwargs.get("warmup_lr_scheduler_cfg"),
         )
     else:
         warmup_epochs = 0
         warmup_lr_scheduler = None
 
     if "lr_scheduler" in kwargs.keys():
-        if kwargs["lr_scheduler"] == "CosineAnnealingLR":
-            kwargs["lr_scheduler_cfg"]["T_max"] = kwargs["epochs"] - warmup_epochs
+        if kwargs.get("lr_scheduler") == "CosineAnnealingLR":
+            kwargs["lr_scheduler_cfg"]["T_max"] = kwargs.get("epochs") - warmup_epochs
 
-        main_lr_scheduler: LRScheduler = getattr(_lr_scheduler, kwargs["lr_scheduler"])(
+        main_lr_scheduler: LRScheduler = getattr(
+            _lr_scheduler, kwargs.get("lr_scheduler")
+        )(
             optimizer=optimizer,
-            **kwargs["lr_scheduler_cfg"],
+            **kwargs.get("lr_scheduler_cfg"),
         )
     else:
         main_lr_scheduler: LRScheduler = _lr_scheduler.StepLR(
             optimizer=optimizer,
-            step_size=kwargs["epochs"],
+            step_size=kwargs.get("epochs"),
             gamma=1.0,
         )
 
@@ -42,7 +44,7 @@ def load_scheduler(
         lr_scheduler = _lr_scheduler.SequentialLR(
             optimizer=optimizer,
             schedulers=[warmup_lr_scheduler, main_lr_scheduler],
-            milestones=[kwargs["warmup_lr_scheduler_cfg"]["total_iters"]],
+            milestones=[kwargs.get("warmup_lr_scheduler_cfg")["total_iters"]],
         )
     else:
         lr_scheduler = main_lr_scheduler

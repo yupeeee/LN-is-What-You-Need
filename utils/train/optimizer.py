@@ -14,15 +14,15 @@ def load_optimizer(
     assert "optimizer" in kwargs.keys()
     assert "init_lr" in kwargs.keys()
 
-    optimizer: Optimizer = getattr(optim, kwargs["optimizer"])
+    optimizer: Optimizer = getattr(optim, kwargs.get("optimizer"))
 
     optimizer_cfg = {
         "params": model.parameters(),
-        "lr": kwargs["init_lr"],
+        "lr": kwargs.get("init_lr"),
     }
 
     if "optimizer_cfg" in kwargs.keys():
-        optimizer_cfg = {**optimizer_cfg, **kwargs["optimizer_cfg"]}
+        optimizer_cfg = {**optimizer_cfg, **kwargs.get("optimizer_cfg")}
 
     optimizer = optimizer(**optimizer_cfg)
 
