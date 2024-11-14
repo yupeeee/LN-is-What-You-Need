@@ -30,7 +30,7 @@ class Wrapper(L.LightningModule):
     ) -> None:
         super().__init__()
 
-        check_config(kwargs)
+        check_config(**kwargs)
 
         self.model = model
         self.config = kwargs
