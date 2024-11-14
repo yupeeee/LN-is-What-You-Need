@@ -1,6 +1,7 @@
 import os
 
 import torchvision
+from torchvision.transforms.functional import InterpolationMode
 
 from ..typing import Dataset, Literal, Path
 from .transforms import ClassificationPresetEval, ClassificationPresetTrain
@@ -18,7 +19,7 @@ def ImageNet(
 ) -> Dataset:
     crop_size = kwargs.get("crop_size", 224 if split == "train" else 256)
     resize_size = kwargs.get("resize_size", 224)
-    interpolation = kwargs.get("interpolation", "bilinear")
+    interpolation = InterpolationMode(kwargs.get("interpolation", "bilinear"))
     auto_augment_policy = kwargs.get("auto_augment", None)
     random_erase_prob = kwargs.get("random_erase", 0.0)
     ra_magnitude = kwargs.get("ra_magnitude", None)
