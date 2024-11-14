@@ -160,6 +160,9 @@ def load_trainer(
     _log_dir = tensorboard_logger.log_dir
     checkpoint_callback = load_checkpoint_callback()
 
+    if config["amp"] is True:
+        torch.set_float32_matmul_precision("medium")
+
     trainer = L.Trainer(
         accelerator=accelerator,
         devices=devices,
