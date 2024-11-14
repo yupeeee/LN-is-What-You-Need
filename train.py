@@ -19,7 +19,7 @@ if __name__ == "__main__":
     parser.add_argument("--resume", action="store_true", default=False)
     args = parser.parse_args()
 
-    config = load_config(os.path.join("cfgs", args.config))
+    config = load_config(os.path.join("cfgs", f"{args.config}.yaml"))
 
     model = load_model(args.model)
     if args.bn2ln:
