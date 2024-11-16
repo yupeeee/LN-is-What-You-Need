@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Literal, Optional, Sequence, Tuple, Union
 
 from lightning import LightningModule, Trainer
 from torch import Tensor
+from torch import device as Device
 from torch.nn import Module
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import LRScheduler
@@ -12,6 +13,7 @@ __all__ = [
     "Any",
     "Dataset",
     "DataLoader",
+    "Device",
     "Devices",
     "Dict",
     "LightningModule",
